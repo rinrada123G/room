@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบลงทะเบียนและจองห้องประชุม</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #007BFF;a
+        }
+
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 10px;
+            background: #e7f3ff;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+            color: #007BFF;
+			
+        }
+    </style>
+</head>
+<body>
+    <h1>ระบบลงทะเบียนและจองห้องประชุม</h1>
+
+    <!-- ฟอร์มลงทะเบียน -->
+<h2>ลงทะเบียนผู้ใช้งาน</h2>
+    <form action="../AppServ/www/Jewelry_shop1/การพัฒนาเว็บไซต์ระบบจองห้องประชุมออนไลน์22.html" target="_blank" id="registerForm">
+        <label for="username">ชื่อผู้ใช้งาน:</label>
+        <input type="text" id="username" placeholder="กรอกชื่อผู้ใช้งาน" required>
+
+        <label for="email">อีเมล:</label>
+        <input type="email" id="email" placeholder="กรอกอีเมล" required>
+
+        <label for="password">รหัสผ่าน:</label>
+        <input type="password" id="password" placeholder="กรอกรหัสผ่าน" required>
+
+      <a href="Book a room2.html" target="_blank">
+        <button type="button" onclick="registerUser()">ลงทะเบียน</button>
+      </a>
+    </form>
+
+    <!-- ฟอร์มจองห้องประชุม -->
+<h2>จองห้องประชุม</h2>
+    <form id="bookingForm" style="display: none;">
+      <label for="room">เลือกห้องประชุม:</label>
+        <select id="room" required>
+            <option value="" disabled selected>-- เลือกห้องประชุม --</option>
+            <option value="ห้องประชุมใหญ่">ห้องประชุมใหญ่</option>
+            <option value="ห้องประชุมเล็ก">ห้องประชุมเล็ก</option>
+        </select>
+
+        <label for="date">วันที่ต้องการจอง:</label>
+        <input type="date" id="date" required>
+
+        <label for="time">เวลาที่ต้องการจอง:</label>
+        <input type="time" id="time" required>
+
+        <button type="button" onclick="bookRoom()">ยืนยันการจอง</button>
+    </form>
+
+    <!-- แสดงผล -->
+    <div class="result" id="result" style="display: none;">
+        <p id="resultText"></p>
+    </div>
+
+    <script>
+        let isUserRegistered = false;
+
+        function registerUser() {
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            if (username && email && password) {
+                isUserRegistered = true;
+                alert(ลงทะเบียนสำเร็จ! ชื่อผู้ใช้งาน: ${username});
+                document.getElementById("registerForm").style.display = "none";
+                document.getElementById("bookingForm").style.display = "block";
+            } else {
+                alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
+            }
+        }
+
+        function bookRoom() {
+            if (!isUserRegistered) {
+                alert("กรุณาลงทะเบียนก่อนจองห้องประชุม!");
+                return;
+            }
+
+            const room = document.getElementById("room").value;
+            const date = document.getElementById("date").value;
+            const time = document.getElementById("time").value;
+
+            if (room && date && time) {
+                const resultText = document.getElementById("resultText");
+                resultText.textContent = คุณได้จอง ${room} ในวันที่ ${date} เวลา ${time} เรียบร้อยแล้ว!;
+                document.getElementById("result").style.display = "block";
+                document.getElementById("bookingForm").reset();
+            } else {
+                alert("กรุณากรอกข้อมูลการจองให้ครบถ้วน!");
+            }
+        }
+    </script>
+</body>
+</html>
